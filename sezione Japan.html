@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Libreria · Scelte Consigliate</title>
+  <style>
+    :root{
+      --bg-page: #faf9f7;
+      --text: #1c1c1c;
+      --muted: #666;
+      --card-bg: #ffffff;
+      --card-border: #e8e5df;
+      --accent: #CCF2D3;       /* verde pastello chiaro (CTA) */
+      --accent-hover: #E6F9EB; /* hover CTA */
+      --accent-text: #000000;  /* testo CTA */
+      --radius: 14px;
+      --shadow: 0 8px 24px rgba(0,0,0,.08);
+      --shadow-soft: 0 3px 10px rgba(0,0,0,.06);
+      --container: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body{
+      margin: 0;
+      font-family: system-ui, -apple-system, "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg-page);
+      line-height: 1.5;
+    }
+
+    .container{
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* ====== HERO (header con immagine + testo) ====== */
+    .hero{
+      position: relative;
+      border-radius: calc(var(--radius) + 4px);
+      overflow: hidden;
+      min-height: 44vh;
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+    /* Cambia l'immagine qui sotto */
+    .hero::before{
+      content: "";
+      position: absolute; inset: 0;
+      background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1600&auto=format&fit=crop");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.05) contrast(1.02);
+      z-index: -2;
+    }
+    .hero::after{
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom right, rgba(0,0,0,0.55), rgba(0,0,0,0.25));
+      z-index: -1;
+    }
+    .hero__content{
+      text-align: center;
+      color: #fff;
+      padding: 32px;
+      max-width: 900px;
+    }
+    .hero__kicker{
+      display: inline-block;
+      font-size: 0.9rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.35);
+      padding: 6px 10px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      backdrop-filter: blur(2px);
+    }
+    .hero__title{
+      margin: 0 0 10px 0;
+      font-size: clamp(1.8rem, 3.8vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .hero__subtitle{
+      margin: 0;
+      font-size: clamp(1rem, 1.6vw, 1.25rem);
+      color: rgba(255,255,255,.95);
+      max-width: 60ch;
+      margin-inline: auto;
+    }
+
+    /* ====== CARDS ====== */
+    .section{ margin-top: 36px; }
+    .cards{ display: grid; gap: 16px; }
+
+    .card{
+      display: grid;
+      grid-template-columns: 180px 1fr auto; /* img | testo | CTA */
+      gap: 16px;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: var(--shadow-soft);
+    }
+    .card__media{
+      width: 100%;
+      height: 120px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ddd;
+    }
+    .card__media img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .card__body{ min-width: 0; }
+    .card__title{
+      margin: 0 0 6px 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+    .card__desc{
+      margin: 0;
+      color: var(--muted);
+      font-size: .95rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card__cta{ white-space: nowrap; align-self: center; justify-self: end; }
+
+    .btn{
+      background: var(--accent);
+      color: var(--accent-text);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: .9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 5px 12px rgba(0,0,0,0.12);
+      border: 1px solid rgba(0,0,0,.06);
+      transition: transform .15s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover{ background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 8px 16px rgba(0,0,0,0.14); }
+    .btn:focus{ outline: 3px solid #2f7a4c55; outline-offset: 2px; }
+
+    /* ====== RESPONSIVE ====== */
+    @media (max-width: 900px){
+      .card{ grid-template-columns: 160px 1fr auto; }
+      .card__media{ height: 110px; }
+    }
+    @media (max-width: 680px){
+      .card{ grid-template-columns: 1fr; gap: 10px; }
+      .card__media{ height: 180px; }
+      .card__cta{ justify-self: start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER CON IMMAGINE + TESTO -->
+  <header class="container">
+    <section class="hero" aria-label="Scopri nuovi libri">
+      <div class="hero__content">
+        <span class="hero__kicker">Consigli di lettura</span>
+        <h1 class="hero__title">Trova il libro giusto, al momento giusto</h1>
+        <p class="hero__subtitle">
+          Dalle atmosfere giapponesi al thriller europeo: una selezione curata
+          per ispirare la tua prossima lettura.
+        </p>
+      </div>
+    </section>
+  </header>
+
+  <!-- LISTA DI CARD -->
+  <main class="container section" aria-label="Suggerimenti di libri">
+    <div class="cards">
+
+      <!-- Card 1 -->
+      <article class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=1200&auto=format&fit=crop" alt="Stack di libri su tavolo in legno" />
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Racconti di Kyoto</h3>
+          <p class="card__desc">Un viaggio tra templi, legno e carta: storie intime che esplorano tradizione e modernità nel cuore del Giappone.</p>
+        </div>
+        <div class="card__cta">
+          <a class="btn" href="#libro-kyoto">Scegli il tuo prossimo libro</a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop" alt="Persona che legge un libro su divano" />
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Minimalismo narrativo</h3>
+          <p class="card__desc">Prosa essenziale, atmosfera sospesa: racconti che lasciano spazio all’immaginazione e alla riflessione.</p>
+        </div>
+        <div class="card__cta">
+          <a class="btn" href="#libro-minimal">Scegli il tuo prossimo libro</a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=1200&auto=format&fit=crop" alt="Copertine di libri su scaffale" />
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Suspense metropolitana</h3>
+          <p class="card__desc">Tra neon e grattacieli, un giallo serrato che indaga le ombre della città contemporanea.</p>
+        </div>
+        <div class="card__cta">
+          <a class="btn" href="#libro-thriller">Scegli il tuo prossimo libro</a>
+        </div>
+      </article>
+
+      <!-- Card 4 (facoltativa) -->
+      <article class="card">
+        <div class="card__media">
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?q=80&w=1200&auto=format&fit=crop" alt="Taccuino e penna su tavolo" />
+        </div>
+        <div class="card__body">
+          <h3 class="card__title">Diari e introspezioni</h3>
+          <p class="card__desc">Confessioni e memorie che rivelano l’universo interiore dei personaggi, con delicatezza e profondità.</p>
+        </div>
+        <div class="card__cta">
+          <a class="btn" href="#libro-diari">Scegli il tuo prossimo libro</a>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+</body>
+</html>
